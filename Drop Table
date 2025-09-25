@@ -1,0 +1,22 @@
+DROP TABLE:
+-> Used to delete the structure of a table.
+-> A parent can be dropped only after dropping the child table.
+
+Query:
+create table branch(branch_name varchar(20) primary key,branch_city varchar(20),asset int);
+desc branch;
+drop table branch;
+desc branch;
+
+
+Output:
+
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| branch_name | varchar(20) | NO   | PRI | NULL    |       |
+| branch_city | varchar(20) | YES  |     | NULL    |       |
+| asset       | int         | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+
+ERROR 1146 (42S02) at line 4: Table 'sandbox_db.branch' doesn't exist
