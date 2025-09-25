@@ -1,0 +1,27 @@
+CHECK KEY:
+-> It is user defined constraint.
+
+
+Query:
+create table hope1(a int check(a>100),b int);
+desc hope1;
+
+insert into hope1 values(101,200);
+-- insert into hope1 values(99,200);
+
+select * from hope1;
+
+
+Output:
+
++-------+------+------+-----+---------+-------+
+| Field | Type | Null | Key | Default | Extra |
++-------+------+------+-----+---------+-------+
+| a     | int  | YES  |     | NULL    |       |
+| b     | int  | YES  |     | NULL    |       |
++-------+------+------+-----+---------+-------+
++------+------+
+| a    | b    |
++------+------+
+|  101 |  200 |
++------+------+
