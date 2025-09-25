@@ -1,0 +1,98 @@
+SELECT:
+-> Used to retrieve data from one or more tables.
+-> It can return specific columns or all (*) and can include conditions, sorting, grouping, etc.
+
+
+Query:
+create table branch(branch_name varchar(20) primary key,branch_city varchar(20),asset int);
+
+create table customer(customer_id varchar(20) primary key,customer_name varchar(50),customer_street varchar(20),customer_city varchar(20));
+
+create table account(account_no varchar(20) primary key,branch_name varchar(20),balance int,foreign key(branch_name) references branch(branch_name));
+
+create table loan(loan_no varchar(20) primary key,branch_name varchar(20),amount int,foreign key(branch_name) references branch(branch_name));
+
+create table borrower(loan_no varchar(20),customer_id varchar(20),foreign key(customer_id) references customer(customer_id),foreign key(loan_no) references loan(loan_no));
+
+create table depositor(account_no varchar(20),customer_id varchar(20),foreign key(account_no) references account(account_no),foreign key(customer_id) references customer(customer_id));
+
+-- Insert into Branch
+INSERT INTO branch VALUES ('SBI_Chennai', 'Chennai', 5000000);
+INSERT INTO branch VALUES ('SBI_Mumbai', 'Mumbai', 8000000);
+
+-- Insert into Customer
+INSERT INTO customer VALUES ('C001', 'Ravi Kumar', 'MG Road', 'Chennai');
+INSERT INTO customer VALUES ('C002', 'Anita Sharma', 'Andheri', 'Mumbai');
+
+-- Insert into Account
+INSERT INTO account VALUES ('A101', 'SBI_Chennai', 20000);
+INSERT INTO account VALUES ('A102', 'SBI_Mumbai', 35000);
+
+-- Insert into Loan
+INSERT INTO loan VALUES ('L201', 'SBI_Chennai', 150000);
+INSERT INTO loan VALUES ('L202', 'SBI_Mumbai', 300000);
+
+-- Insert into Borrower
+INSERT INTO borrower VALUES ('L201', 'C001');
+INSERT INTO borrower VALUES ('L202', 'C002');
+
+-- Insert into Depositor
+INSERT INTO depositor VALUES ('A101', 'C001');
+INSERT INTO depositor VALUES ('A102', 'C002');
+
+-- Show all customers
+SELECT * FROM customer;
+
+-- Show all accounts with balance > 25000
+SELECT account_no, branch_name, balance 
+FROM account 
+WHERE balance > 25000;
+
+-- Show all loans taken from SBI_Mumbai branch
+SELECT loan_no, amount 
+FROM loan 
+WHERE branch_name = 'SBI_Mumbai';
+
+-- Show borrowers and their loan amounts (JOIN)
+SELECT b.customer_id, c.customer_name, l.loan_no, l.amount
+FROM borrower b
+JOIN customer c ON b.customer_id = c.customer_id
+JOIN loan l ON b.loan_no = l.loan_no;
+
+-- Show depositors and their balances (JOIN)
+SELECT d.customer_id, c.customer_name, a.account_no, a.balance
+FROM depositor d
+JOIN customer c ON d.customer_id = c.customer_id
+JOIN account a ON d.account_no = a.account_no;
+
+
+Output:
+
++-------------+---------------+-----------------+---------------+
+| customer_id | customer_name | customer_street | customer_city |
++-------------+---------------+-----------------+---------------+
+| C001        | Ravi Kumar    | MG Road         | Chennai       |
+| C002        | Anita Sharma  | Andheri         | Mumbai        |
++-------------+---------------+-----------------+---------------+
++------------+-------------+---------+
+| account_no | branch_name | balance |
++------------+-------------+---------+
+| A102       | SBI_Mumbai  |   35000 |
++------------+-------------+---------+
++---------+--------+
+| loan_no | amount |
++---------+--------+
+| L202    | 300000 |
++---------+--------+
++-------------+---------------+---------+--------+
+| customer_id | customer_name | loan_no | amount |
++-------------+---------------+---------+--------+
+| C001        | Ravi Kumar    | L201    | 150000 |
+| C002        | Anita Sharma  | L202    | 300000 |
++-------------+---------------+---------+--------+
++-------------+---------------+------------+---------+
+| customer_id | customer_name | account_no | balance |
++-------------+---------------+------------+---------+
+| C001        | Ravi Kumar    | A101       |   20000 |
+| C002        | Anita Sharma  | A102       |   35000 |
++-------------+---------------+------------+---------+
