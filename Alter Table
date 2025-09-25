@@ -1,0 +1,75 @@
+ALTER TABLE:
+It consist of 3 commands,they are
+-> Add:
+   -->Used to add a new column of a datatype to a existing table.
+-> Drop:
+   -->Used to remove a column in a existing table.
+-> Modify:
+   -->Used to change the datatype of a column in a existing table.
+
+
+Query:
+create table branch(branch_name varchar(20) primary key,branch_city varchar(20),asset int);
+desc branch;
+
+alter table branch add ifsccode int;
+desc branch;
+
+alter table branch drop ifsccode;
+desc branch;
+
+alter table branch modify branch_name varchar(25);
+desc branch;
+
+alter table branch drop primary key;
+desc branch;
+
+alter table branch add primary key(branch_name);
+desc branch;
+
+
+Output:
+
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| branch_name | varchar(20) | NO   | PRI | NULL    |       |
+| branch_city | varchar(20) | YES  |     | NULL    |       |
+| asset       | int         | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| branch_name | varchar(20) | NO   | PRI | NULL    |       |
+| branch_city | varchar(20) | YES  |     | NULL    |       |
+| asset       | int         | YES  |     | NULL    |       |
+| ifsccode    | int         | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| branch_name | varchar(20) | NO   | PRI | NULL    |       |
+| branch_city | varchar(20) | YES  |     | NULL    |       |
+| asset       | int         | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| branch_name | varchar(25) | NO   | PRI | NULL    |       |
+| branch_city | varchar(20) | YES  |     | NULL    |       |
+| asset       | int         | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| branch_name | varchar(25) | NO   |     | NULL    |       |
+| branch_city | varchar(20) | YES  |     | NULL    |       |
+| asset       | int         | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| branch_name | varchar(25) | NO   | PRI | NULL    |       |
+| branch_city | varchar(20) | YES  |     | NULL    |       |
+| asset       | int         | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
