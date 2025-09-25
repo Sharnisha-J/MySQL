@@ -1,0 +1,113 @@
+DELETE
+-> Used to remove one or more records in a table.
+
+
+Query:
+create table branch(branch_name varchar(20) primary key,branch_city varchar(20),asset int);
+
+create table customer(customer_id varchar(20) primary key,customer_name varchar(50),customer_street varchar(20),customer_city varchar(20));
+
+create table account(account_no varchar(20) primary key,branch_name varchar(20),balance int,foreign key(branch_name) references branch(branch_name));
+
+create table loan(loan_no varchar(20) primary key,branch_name varchar(20),amount int,foreign key(branch_name) references branch(branch_name));
+
+create table borrower(loan_no varchar(20),customer_id varchar(20),foreign key(customer_id) references customer(customer_id),foreign key(loan_no) references loan(loan_no));
+
+create table depositor(account_no varchar(20),customer_id varchar(20),foreign key(account_no) references account(account_no),foreign key(customer_id) references customer(customer_id));
+
+-- Insert into Branch
+INSERT INTO branch VALUES ('SBI_Chennai', 'Chennai', 5000000);
+INSERT INTO branch VALUES ('SBI_Mumbai', 'Mumbai', 8000000);
+
+-- Insert into Customer
+INSERT INTO customer VALUES ('C001', 'Ravi Kumar', 'MG Road', 'Chennai');
+INSERT INTO customer VALUES ('C002', 'Anita Sharma', 'Andheri', 'Mumbai');
+
+-- Insert into Account
+INSERT INTO account VALUES ('A101', 'SBI_Chennai', 20000);
+INSERT INTO account VALUES ('A102', 'SBI_Mumbai', 35000);
+
+-- Insert into Loan
+INSERT INTO loan VALUES ('L201', 'SBI_Chennai', 150000);
+INSERT INTO loan VALUES ('L202', 'SBI_Mumbai', 300000);
+
+-- Insert into Borrower
+INSERT INTO borrower VALUES ('L201', 'C001');
+INSERT INTO borrower VALUES ('L202', 'C002');
+
+-- Insert into Depositor
+INSERT INTO depositor VALUES ('A101', 'C001');
+INSERT INTO depositor VALUES ('A102', 'C002');
+
+-- Update branch asset
+UPDATE branch 
+SET asset = asset + 1000000 
+WHERE branch_name = 'SBI_Chennai';
+
+-- Update customer city
+UPDATE customer
+SET customer_city = 'Pune'
+WHERE customer_id = 'C002';
+
+-- Update account balance
+UPDATE account
+SET balance = balance - 5000
+WHERE account_no = 'A101';
+
+-- Update loan amount
+UPDATE loan
+SET amount = amount + 50000
+WHERE loan_no = 'L202';
+
+-- Delete a depositor record
+DELETE FROM depositor 
+WHERE account_no = 'A102';
+
+-- Delete a borrower record
+DELETE FROM borrower 
+WHERE loan_no = 'L201';
+
+select * from branch;
+select * from customer;
+select * from account;
+select * from loan;
+select * from borrower;
+select * from depositor;
+
+
+Output:
+
++-------------+-------------+---------+
+| branch_name | branch_city | asset   |
++-------------+-------------+---------+
+| SBI_Chennai | Chennai     | 6000000 |
+| SBI_Mumbai  | Mumbai      | 8000000 |
++-------------+-------------+---------+
++-------------+---------------+-----------------+---------------+
+| customer_id | customer_name | customer_street | customer_city |
++-------------+---------------+-----------------+---------------+
+| C001        | Ravi Kumar    | MG Road         | Chennai       |
+| C002        | Anita Sharma  | Andheri         | Pune          |
++-------------+---------------+-----------------+---------------+
++------------+-------------+---------+
+| account_no | branch_name | balance |
++------------+-------------+---------+
+| A101       | SBI_Chennai |   15000 |
+| A102       | SBI_Mumbai  |   35000 |
++------------+-------------+---------+
++---------+-------------+--------+
+| loan_no | branch_name | amount |
++---------+-------------+--------+
+| L201    | SBI_Chennai | 150000 |
+| L202    | SBI_Mumbai  | 350000 |
++---------+-------------+--------+
++---------+-------------+
+| loan_no | customer_id |
++---------+-------------+
+| L202    | C002        |
++---------+-------------+
++------------+-------------+
+| account_no | customer_id |
++------------+-------------+
+| A101       | C001        |
++------------+-------------+
