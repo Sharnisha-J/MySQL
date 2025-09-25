@@ -1,0 +1,31 @@
+Rename Table:
+-> Used to rename a tables name to a new name.
+
+
+Query:
+create table branch_m(branch_name varchar(20) primary key,branch_city varchar(20),asset int);
+desc branch_m;
+
+rename table branch_m to branch;
+desc branch;
+desc branch_m;
+
+
+Output:
+
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| branch_name | varchar(20) | NO   | PRI | NULL    |       |
+| branch_city | varchar(20) | YES  |     | NULL    |       |
+| asset       | int         | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| branch_name | varchar(20) | NO   | PRI | NULL    |       |
+| branch_city | varchar(20) | YES  |     | NULL    |       |
+| asset       | int         | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+
+ERROR 1146 (42S02) at line 6: Table 'sandbox_db.branch_m' doesn't exist
