@@ -1,5 +1,5 @@
 IS OPERATOR:
--> Used in to compare a value with a special value such as NULL, TRUE, FALSE.
+-> Used to compare a value with a special value such as NULL, TRUE, FALSE.
 
 
 Query:
