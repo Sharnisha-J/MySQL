@@ -1,0 +1,14 @@
+1) Find all customer name who have account in the bank.
+query: select customer.customer_name from depositor,customer where depositor.customer_id=customer.customer_id;
+
+2) Find the balance of all the account along with the customer name.
+query: select customer.customer_name,account.account_no,account.balance from customer,depositor,account where customer.customer_id=depositor.customer_id and account.account_no=depositor.account_no;
+
+3) List the name of customer who have account in Tambaram branch.
+query: select customer.customer_id,customer.customer_name from customer,depositor,account where customer.customer_id=depositor.customer_id and account.account_no=depositor.account_no and account.branch_name='Tambaram';
+
+4) Find all customer who have taken a loan.
+query: select customer.customer_name from customer,borrower where customer.customer_id=borrower.customer_id;
+
+5) List of all loan number with corresponding customer name.
+query: select borrower.loan_no,customer.customer_name from customer,borrower where customer.customer_id=borrower.customer_id;
