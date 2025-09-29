@@ -1,0 +1,64 @@
+11) Display the details of loans along with the borrower’s customer information.
+query: select * from loan inner join borrower on loan.loan_no=borrower.loan_no inner join customer on borrower.customer_id=customer.customer_id;
+Output:
++---------+-------------+--------+---------+-------------+-------------+------------------+-----------------+---------------+
+| loan_no | branch_name | amount | loan_no | customer_id | customer_id | customer_name    | customer_street | customer_city |
++---------+-------------+--------+---------+-------------+-------------+------------------+-----------------+---------------+
+| Loan_01 | Guindy      |    900 | Loan_01 | Cust_01     | Cust_01     | Thanmathi D E    | Main            | Sankarankovil |
+| Loan_02 | Adayar      |   1500 | Loan_02 | Cust_05     | Cust_05     | Esther Venuga D  | Main            | Chennai       |
+| Loan_03 | Tambaram    |   1500 | Loan_03 | Cust_10     | Cust_10     | Suresh K         | East            | Salem         |
+| Loan_04 | Tambaram    |   1300 | Loan_04 | Cust_03     | Cust_03     | Thangasamy S     | East            | Madurai       |
+| Loan_05 | Adayar      |   1000 | Loan_05 | Cust_05     | Cust_05     | Esther Venuga D  | Main            | Chennai       |
+| Loan_06 | Saidapet    |   2000 | Loan_06 | Cust_01     | Cust_01     | Thanmathi D E    | Main            | Sankarankovil |
+| Loan_07 | Chrompet    |    500 | Loan_07 | Cust_03     | Cust_03     | Thangasamy S     | East            | Madurai       |
+| Loan_08 | Adayar      |    805 | Loan_08 | Cust_11     | Cust_11     | Samiayya V       | West            | Chidambaram   |
+| Loan_08 | Adayar      |    805 | Loan_08 | Cust_10     | Cust_10     | Suresh K         | East            | Salem         |
+| Loan_09 | Guindy      |    875 | Loan_09 | Cust_12     | Cust_12     | Sakunthaladevi S | South           | Erode         |
++---------+-------------+--------+---------+-------------+-------------+------------------+-----------------+---------------+
+
+12) Find the total loan amount borrowed by customers in each city.
+query: select sum(loan.amount),customer.customer_city from loan inner join borrower on loan.loan_no=borrower.loan_no inner join customer on borrower.customer_id=customer.customer_id group by customer_city;
+Output:
++------------------+---------------+
+| sum(loan.amount) | customer_city |
++------------------+---------------+
+|             2900 | Sankarankovil |
+|             2500 | Chennai       |
+|             2305 | Salem         |
+|             1800 | Madurai       |
+|              805 | Chidambaram   |
+|              875 | Erode         |
++------------------+---------------+
+
+13) List the customer names along with their account numbers and branch names.
+query: select customer.customer_name,account.account_no,account.branch_name from customer,account,depositor where customer.customer_id=depositor.customer_id and depositor.account_no=account.account_no;
+Output:
++-----------------------+------------+-------------+
+| customer_name         | account_no | branch_name |
++-----------------------+------------+-------------+
+| Dickson Paul Samraj K | SB_102     | Adayar      |
+| Javid Ali L           | SB_105     | Chrompet    |
+| Lakshmi V             | SB_108     | Chrompet    |
+| Surenthran David P    | SB_108     | Chrompet    |
+| Dickson Paul Samraj K | SB_106     | Guindy      |
+| Bharkavi D E          | SB_107     | Guindy      |
+| Esther Venuga D       | SB_104     | Saidapet    |
+| Veluchamy             | SB_101     | Tambaram    |
+| Thangasamy S          | SB_103     | TNagar      |
++-----------------------+------------+-------------+
+
+14) Display the customer name, customer city, and branch city for customers whose city matches the city of the branch where they hold an account.
+query: select customer.customer_name,customer.customer_city,branch.branch_city from account inner join depositor on account.account_no=depositor.account_no inner join customer on depositor.customer_id=customer.customer_id inner join branch on branch.branch_name=account.branch_name and customer.customer_city=branch.branch_city;
+Output:
+Program did not output anything!
+
+15) Find the customer with the highest account balance.
+query: select * from account,depositor,customer where account.account_no=depositor.account_no and depositor.customer_id=customer.customer_id order by account.balance desc limit 1;
+Output:
++------------+-------------+---------+------------+-------------+-------------+-----------------------+-----------------+---------------+
+| account_no | branch_name | balance | account_no | customer_id | customer_id | customer_name         | customer_street | customer_city |
++------------+-------------+---------+------------+-------------+-------------+-----------------------+-----------------+---------------+
+| SB_102     | Adayar      |    2300 | SB_102     | Cust_08     | Cust_08     | Dickson Paul Samraj K | North           | Vallioor      |
++------------+-------------+---------+------------+-------------+-------------+-----------------------+-----------------+---------------+
+
+16) 
