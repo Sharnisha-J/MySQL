@@ -1,0 +1,145 @@
+1) Find all customer name who have account in the bank.
+query: select customer.customer_name from depositor,customer where depositor.customer_id=customer.customer_id;
+Output:
++-----------------------+
+| customer_name         |
++-----------------------+
+| Bharkavi D E          |
+| Thangasamy S          |
+| Veluchamy             |
+| Esther Venuga D       |
+| Lakshmi V             |
+| Javid Ali L           |
+| Dickson Paul Samraj K |
+| Dickson Paul Samraj K |
+| Surenthran David P    |
++-----------------------+
+
+2) Find the balance of all the account along with the customer name.
+query: select customer.customer_name,account.account_no,account.balance from customer,depositor,account where customer.customer_id=depositor.customer_id and account.account_no=depositor.account_no;
+Output:
++-----------------------+------------+---------+
+| customer_name         | account_no | balance |
++-----------------------+------------+---------+
+| Veluchamy             | SB_101     |    1500 |
+| Dickson Paul Samraj K | SB_102     |    2300 |
+| Thangasamy S          | SB_103     |    1800 |
+| Esther Venuga D       | SB_104     |     500 |
+| Javid Ali L           | SB_105     |     500 |
+| Dickson Paul Samraj K | SB_106     |     500 |
+| Bharkavi D E          | SB_107     |     900 |
+| Lakshmi V             | SB_108     |    1300 |
+| Surenthran David P    | SB_108     |    1300 |
++-----------------------+------------+---------+
+
+3) List the name of customer who have account in Tambaram branch.
+query: select customer.customer_id,customer.customer_name from customer,depositor,account where customer.customer_id=depositor.customer_id and account.account_no=depositor.account_no and account.branch_name='Tambaram';
+Output:
++-------------+---------------+
+| customer_id | customer_name |
++-------------+---------------+
+| Cust_04     | Veluchamy     |
++-------------+---------------+
+
+4) Find all customer who have taken a loan.
+query: select customer.customer_name from customer,borrower where customer.customer_id=borrower.customer_id;
+Output:
++------------------+
+| customer_name    |
++------------------+
+| Thanmathi D E    |
+| Thanmathi D E    |
+| Thangasamy S     |
+| Thangasamy S     |
+| Esther Venuga D  |
+| Esther Venuga D  |
+| Suresh K         |
+| Suresh K         |
+| Samiayya V       |
+| Sakunthaladevi S |
++------------------+
+
+5) List of all loan number with corresponding customer name.
+query: select borrower.loan_no,customer.customer_name from customer,borrower where customer.customer_id=borrower.customer_id;
+Output:
++---------+------------------+
+| loan_no | customer_name    |
++---------+------------------+
+| Loan_01 | Thanmathi D E    |
+| Loan_06 | Thanmathi D E    |
+| Loan_07 | Thangasamy S     |
+| Loan_05 | Esther Venuga D  |
+| Loan_04 | Thangasamy S     |
+| Loan_02 | Esther Venuga D  |
+| Loan_03 | Suresh K         |
+| Loan_08 | Samiayya V       |
+| Loan_09 | Sakunthaladevi S |
+| Loan_08 | Suresh K         |
++---------+------------------+
+
+6) Find the total loan amount the borrower has borrowed from each branch.
+query: select branch_name,sum(amount) from Loan group by branch_name;
+Output:
++-------------+-------------+
+| branch_name | sum(amount) |
++-------------+-------------+
+| Adayar      |        3305 |
+| Chrompet    |         500 |
+| Guindy      |        1775 |
+| Saidapet    |        2000 |
+| Tambaram    |        2800 |
++-------------+-------------+
+
+7) List the names of customers who are both depositors and borrowers.
+query: select distinct customer.customer_name from customer,depositor,borrower where customer.customer_id=depositor.customer_id and customer.customer_id=borrower.customer_id;
+Output:
++-----------------+
+| customer_name   |
++-----------------+
+| Thangasamy S    |
+| Esther Venuga D |
++-----------------+
+
+8) Display the details of the top two branches having the highest assets.Find the maximum asset value among all branches.
+query: select * from branch order by asset desc limit 2;
+select max(asset) as asset from branch ;
+Output:
++-------------+-------------+--------+
+| branch_name | branch_city | asset  |
++-------------+-------------+--------+
+| Chrompet    | Chennai-43  | 450000 |
+| Tnagar      | Chennai-17  | 250000 |
++-------------+-------------+--------+
++--------+
+| asset  |
++--------+
+| 450000 |
++--------+
+
+9) For each branch, find the average account balance.
+query: select branch_name,avg(balance) from account group by branch_name;
+Output:
++-------------+--------------+
+| branch_name | avg(balance) |
++-------------+--------------+
+| Adayar      |    2300.0000 |
+| Chrompet    |     900.0000 |
+| Guindy      |     700.0000 |
+| Saidapet    |     500.0000 |
+| Tambaram    |    1500.0000 |
+| TNagar      |    1800.0000 |
++-------------+--------------+
+
+10) For each branch, count the number of depositors.
+query: select count(depositor.customer_id),account.branch_name from depositor,account where account.account_no=depositor.account_no group by account.branch_name;
+Output:
++------------------------------+-------------+
+| count(depositor.customer_id) | branch_name |
++------------------------------+-------------+
+|                            1 | Adayar      |
+|                            3 | Chrompet    |
+|                            2 | Guindy      |
+|                            1 | Saidapet    |
+|                            1 | Tambaram    |
+|                            1 | TNagar      |
++------------------------------+-------------+
