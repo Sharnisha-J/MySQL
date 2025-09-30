@@ -60,3 +60,33 @@ Output:
 +------------+-------------+---------+------------+-------------+-------------+-----------------------+-----------------+---------------+
 | SB_102     | Adayar      |    2300 | SB_102     | Cust_08     | Cust_08     | Dickson Paul Samraj K | North           | Vallioor      |
 +------------+-------------+---------+------------+-------------+-------------+-----------------------+-----------------+---------------+ 
+
+16) Display the customer name, customer city, and branch city for customers whose city matches the city of the branch where they hold an account.
+query: select * from loan,borrower,customer where loan.loan_no=borrower.loan_no and borrower.customer_id=customer.customer_id order by loan.amount desc limit 1 ;
+Output:
++---------+-------------+--------+---------+-------------+-------------+---------------+-----------------+---------------+
+| loan_no | branch_name | amount | loan_no | customer_id | customer_id | customer_name | customer_street | customer_city |
++---------+-------------+--------+---------+-------------+-------------+---------------+-----------------+---------------+
+| Loan_06 | Saidapet    |   2000 | Loan_06 | Cust_01     | Cust_01     | Thanmathi D E | Main            | Sankarankovil |
++---------+-------------+--------+---------+-------------+-------------+---------------+-----------------+---------------+
+
+17) Display the customer name, customer city, and branch city for customers whose city matches the city of the branch where they hold an account.
+query: select customer.customer_name,count(distinct account.branch_name) as branchCount from customer,depositor,account where customer.customer_id=depositor.customer_id and account.account_no=depositor.account_no group by customer.customer_name having count(account.branch_name)>1;
+Output:
++-----------------------+-------------+
+| customer_name         | branchCount |
++-----------------------+-------------+
+| Dickson Paul Samraj K |           2 |
++-----------------------+-------------+
+
+18) Display the loan amounts from the loan table where the amount is greater than 1000.
+query: select amount from loan where amount>1000;
+Output:
++--------+
+| amount |
++--------+
+|   1500 |
+|   1500 |
+|   1300 |
+|   2000 |
++--------+
