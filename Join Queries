@@ -1,4 +1,4 @@
-11) Display the details of loans along with the borrower’s customer information.
+1) Display the details of loans along with the borrower’s customer information.
 query: select * from loan inner join borrower on loan.loan_no=borrower.loan_no inner join customer on borrower.customer_id=customer.customer_id;
 Output:
 +---------+-------------+--------+---------+-------------+-------------+------------------+-----------------+---------------+
@@ -16,7 +16,7 @@ Output:
 | Loan_09 | Guindy      |    875 | Loan_09 | Cust_12     | Cust_12     | Sakunthaladevi S | South           | Erode         |
 +---------+-------------+--------+---------+-------------+-------------+------------------+-----------------+---------------+
 
-12) Find the total loan amount borrowed by customers in each city.
+2) Find the total loan amount borrowed by customers in each city.
 query: select sum(loan.amount),customer.customer_city from loan inner join borrower on loan.loan_no=borrower.loan_no inner join customer on borrower.customer_id=customer.customer_id group by customer_city;
 Output:
 +------------------+---------------+
@@ -30,7 +30,7 @@ Output:
 |              875 | Erode         |
 +------------------+---------------+
 
-13) List the customer names along with their account numbers and branch names.
+3) List the customer names along with their account numbers and branch names.
 query: select customer.customer_name,account.account_no,account.branch_name from customer,account,depositor where customer.customer_id=depositor.customer_id and depositor.account_no=account.account_no;
 Output:
 +-----------------------+------------+-------------+
@@ -47,12 +47,12 @@ Output:
 | Thangasamy S          | SB_103     | TNagar      |
 +-----------------------+------------+-------------+
 
-14) Display the customer name, customer city, and branch city for customers whose city matches the city of the branch where they hold an account.
+4) Display the customer name, customer city, and branch city for customers whose city matches the city of the branch where they hold an account.
 query: select customer.customer_name,customer.customer_city,branch.branch_city from account inner join depositor on account.account_no=depositor.account_no inner join customer on depositor.customer_id=customer.customer_id inner join branch on branch.branch_name=account.branch_name and customer.customer_city=branch.branch_city;
 Output:
 Program did not output anything!
 
-15) Find the customer with the highest account balance.
+5) Find the customer with the highest account balance.
 query: select * from account,depositor,customer where account.account_no=depositor.account_no and depositor.customer_id=customer.customer_id order by account.balance desc limit 1;
 Output:
 +------------+-------------+---------+------------+-------------+-------------+-----------------------+-----------------+---------------+
@@ -61,7 +61,7 @@ Output:
 | SB_102     | Adayar      |    2300 | SB_102     | Cust_08     | Cust_08     | Dickson Paul Samraj K | North           | Vallioor      |
 +------------+-------------+---------+------------+-------------+-------------+-----------------------+-----------------+---------------+ 
 
-16) Display the customer name, customer city, and branch city for customers whose city matches the city of the branch where they hold an account.
+6) Display the customer name, customer city, and branch city for customers whose city matches the city of the branch where they hold an account.
 query: select * from loan,borrower,customer where loan.loan_no=borrower.loan_no and borrower.customer_id=customer.customer_id order by loan.amount desc limit 1 ;
 Output:
 +---------+-------------+--------+---------+-------------+-------------+---------------+-----------------+---------------+
@@ -70,7 +70,7 @@ Output:
 | Loan_06 | Saidapet    |   2000 | Loan_06 | Cust_01     | Cust_01     | Thanmathi D E | Main            | Sankarankovil |
 +---------+-------------+--------+---------+-------------+-------------+---------------+-----------------+---------------+
 
-17) Display the customer name, customer city, and branch city for customers whose city matches the city of the branch where they hold an account.
+7) Display the customer name, customer city, and branch city for customers whose city matches the city of the branch where they hold an account.
 query: select customer.customer_name,count(distinct account.branch_name) as branchCount from customer,depositor,account where customer.customer_id=depositor.customer_id and account.account_no=depositor.account_no group by customer.customer_name having count(account.branch_name)>1;
 Output:
 +-----------------------+-------------+
@@ -79,7 +79,7 @@ Output:
 | Dickson Paul Samraj K |           2 |
 +-----------------------+-------------+
 
-18) Display the loan amounts from the loan table where the amount is greater than 1000.
+8) Display the loan amounts from the loan table where the amount is greater than 1000.
 query: select amount from loan where amount>1000;
 Output:
 +--------+
