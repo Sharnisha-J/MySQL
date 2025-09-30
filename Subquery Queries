@@ -1,0 +1,42 @@
+1) List the name of customer who have taken loan.
+query: select customer_name from customer where customer_id=any(select customer_id from borrower);
+Output:
++------------------+
+| customer_name    |
++------------------+
+| Thanmathi D E    |
+| Thangasamy S     |
+| Esther Venuga D  |
+| Suresh K         |
+| Samiayya V       |
+| Sakunthaladevi S |
++------------------+
+
+2) Find the name of customer who have deposited money in any account.
+query: select customer_name from customer where customer_id=any(select customer_id from depositer);
+Output:
++-----------------------+
+| customer_name         |
++-----------------------+
+| Bharkavi D E          |
+| Thangasamy S          |
+| Veluchamy             |
+| Esther Venuga D       |
+| Lakshmi V             |
+| Javid Ali L           |
+| Dickson Paul Samraj K |
+| Surenthran David P    |
++-----------------------+
+
+3) Get the branch name where the total loan amount is more than 5000.
+query: select branch_city from branch where branch_name=any(select branch_name from loan group by branch_name having sum(amount)>2000);
+Output:
++-------------+
+| branch_city |
++-------------+
+| Chennai-20  |
+| Chennai-45  |
++-------------+
+
+4) List the customer who have both loan and account.
+query: 
