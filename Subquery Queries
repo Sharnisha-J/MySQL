@@ -39,4 +39,45 @@ Output:
 +-------------+
 
 4) List the customer who have both loan and account.
-query: 
+query: select customer_name from customer where customer_id=any(select  customer_id from depositor where customer_id=any(select customer_id from borrower));
+(or)
+select distinct customer_name from customer,borrower,depositor where customer.customer_id=borrower.customer_id and customer.customer_id=depositor.customer_id;
+Output:
++-----------------+
+| customer_name   |
++-----------------+
+| Thangasamy S    |
+| Esther Venuga D |
++-----------------+
+
+5) Find the account numbers with balance greater than the average balance of accounts.
+query: select account_no from account where balance>(select avg(balance) from account);
+Output:
++------------+
+| account_no |
++------------+
+| SB_101     |
+| SB_102     |
+| SB_103     |
+| SB_108     |
++------------+
+
+6) Display the customer name who have loan at branch city located in chennai-45.
+query: select customer_name from customer where customer_id=any(select customer_id from borrower where loan_no=any(select loan_no from loan where branch_name=any(select branch_name from branch where branch_city="Chennai-45")));
+Output:
++---------------+
+| customer_name |
++---------------+
+| Suresh K      |
+| Thangasamy S  |
++---------------+
+
+7) Find the account number whose balance is greater than balance of all account at chennai-45 branch.
+query: select account_no from account where balance>any(select max(balance) from account where branch_name=any(select branch_name from branch where branch_city="Chennai-45"));
+Output:
++------------+
+| account_no |
++------------+
+| SB_102     |
+| SB_103     |
++------------+
